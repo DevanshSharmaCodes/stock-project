@@ -2,10 +2,12 @@ import express from 'express';
 import dotenv from "dotenv"
 import UpstoxClient from "upstox-js-sdk";
 import cors from 'cors'
+import stocksRouter from './routes/stocks.route.js'
 
 dotenv.config();
 const app = express();
 app.use(cors());
+
 const port = 4000;
 
 const authurlfortoken_sample = `https://api.upstox.com/v2/login/authorization/dialog?response_type=code&client_id=${process.env.CLIENT_ID}&redirect_uri=https%3A%2F%2Flocalhost%3A4000`;
@@ -14,6 +16,8 @@ const authurlfortoken_sample = `https://api.upstox.com/v2/login/authorization/di
 app.get('/', async (req, res) => {
    res.json({ message: "Stock Broker Order Executioner Service" });
 });
+
+app.use('/stocks', stocksRouter);
 
 app.get('/getAccessToken', (req, res) => {
    loginToUpstox();

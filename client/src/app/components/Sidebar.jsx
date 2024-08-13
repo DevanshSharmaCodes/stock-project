@@ -9,7 +9,7 @@ const Sidebar = () => {
 
    const [activeTab, setActiveTab] = useState('watchlists');
    const [activeWatchlist, setActiveWatchlist] = useState(null);
-//    const [suggestions, setSuggestions] = useState([]);
+   const [suggestions, setSuggestions] = useState([]);
    const [newStock, setNewStock] = useState('');
 //    const [socket, setSocket] = useState(null);
    const { watchlists, updateWatchlists } = useWatchlistsDataStore();
@@ -87,12 +87,12 @@ const Sidebar = () => {
                console.log('Stocks received - ', res.data);
                const stockNames = res.data.map(stock => stock._source.name); // Extract stock names
                console.log('Stocks received - ', stockNames);
-            //    setSuggestions(stockNames);
+               setSuggestions(stockNames);
            } catch (error) {
                console.log("Error in searching : ", error.message)
            }
        } else {
-        //    setSuggestions([]);
+           setSuggestions([]);
        }
    }
 
@@ -154,7 +154,7 @@ const Sidebar = () => {
                                value={newStock}
                                onChange={searchStocks}
                            />
-                           {/* {suggestions.length > 0 && (
+                           {suggestions.length > 0 && (
                                <ul className="absolute left-0 border border-gray-400 bg-white">
                                    {suggestions.map((suggestion, index) => (
                                        <li
@@ -169,7 +169,7 @@ const Sidebar = () => {
                                        </li>
                                    ))}
                                </ul>
-                           )} */}
+                           )}
                            <button
                                className="text-blue-500 hover:text-blue-700"
                                onClick={handleAddStock}
