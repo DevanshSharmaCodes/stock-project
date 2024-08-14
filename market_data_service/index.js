@@ -3,12 +3,34 @@ import dotenv from "dotenv"
 import UpstoxClient from "upstox-js-sdk";
 import cors from 'cors'
 import stocksRouter from './routes/stocks.route.js'
+import marketDataRouter from "./routes/marketData.route.js"
+import http from "http"
+import { Server } from "socket.io";
+import getMarketDataFeed from './marketDataAPI/getMarketData.js';
 
 dotenv.config();
 const app = express();
 app.use(cors());
+const server = http.createServer(app);
 
 const port = 4000;
+
+const io = new Server(server, {
+    cors: {
+        allowedHeaders: ["*"],
+        origin: "*"
+      }
+ });
+
+ io.on('connection', (socket) => {
+    console.log('Client connected');
+    socket.on('market data', (msg) => {
+        console.log('Received msg ' + msg); //instrument keys from client
+        getMarketDataFeed(msg, (data)=> {
+            socket.emit('market data', data);
+        });
+    });
+ });
 
 const authurlfortoken_sample = `https://api.upstox.com/v2/login/authorization/dialog?response_type=code&client_id=${process.env.CLIENT_ID}&redirect_uri=https%3A%2F%2Flocalhost%3A4000`;
 
@@ -18,11 +40,13 @@ app.get('/', async (req, res) => {
 });
 
 app.use('/stocks', stocksRouter);
+app.use('/marketDataFeed',marketDataRouter)
 
 app.get('/getAccessToken', (req, res) => {
    loginToUpstox();
    res.json({ message: "Succeeded" });
 });
+
 
 const loginToUpstox = () => {
    const apiInstance = new UpstoxClient.LoginApi();
