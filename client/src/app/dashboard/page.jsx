@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
-import SideBar from '../components/Sidebar'
-
+import SideBar from '../components/sidebar'
+import StockChart from '../components/stockchart';
 
 const Dashboard = () => {
   return (
@@ -11,8 +11,8 @@ const Dashboard = () => {
         </div>
         <div className='w-4/5'>
             <div>
-                {/* <StockChart /> */}
-            </div> 
+                <StockChart />
+            </div>
         </div>
     </div>
   )

@@ -1,11 +1,9 @@
-import Image from "next/image";
-import AnalyticsReport from "./components/AnalyticsReport";
+import Dashboard from "./dashboard/page";
 
 export default function Home() {
   return (
     <div>
-      <AnalyticsReport/>
-      Stock broker app
+      <Dashboard />
     </div>
   );
 }

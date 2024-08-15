@@ -6,8 +6,15 @@ const watchlistSchema = mongoose.Schema({
         required: true
     },
     stocks: [
-        {   
-            type:String
+        {
+            name: {
+                type: String,
+                required: true
+            },
+            instrumentKey: {
+                type: String,
+                required: true
+            }
         }
     ]
 })
