@@ -1,4 +1,4 @@
-# 🏦 Stock Brokerage Platform
+# 🏦 EquityStram-Stock Brokerage Platform
 
 Welcome to the **Stock Brokerage Platform**! This project is a comprehensive solution designed to manage various aspects of stock trading, from market data retrieval to order management, user management, and risk assessment. The platform is built using a **microservices architecture**, ensuring scalability and maintainability.
 
